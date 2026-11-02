@@ -189,8 +189,13 @@ endif
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-full-3.9.1-vendorcompat
 
+# Device specific RROs
 PRODUCT_PACKAGES += \
-    NfcOverlayRedfin
+    FrameworkResOverlayRedfin \
+    NfcOverlayRedfin \
+    SecureElementOverlayRedfin \
+    SettingsOverlayRedfin \
+    SystemUIOverlayRedfin
 
 # Set soong config variable to control module build
 $(call soong_config_set,ctpm,enable_nr_dual_connectivity_qcril,true)

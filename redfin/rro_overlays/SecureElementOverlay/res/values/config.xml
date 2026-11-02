@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
 <resources>
     <!-- The list of AIDs are the candidate of the ARA AID in ESE.
          The first available AID will be taken as the ARA AID. -->
@@ -6,4 +10,3 @@
         <item>a000000476e001</item>
     </string-array>
 </resources>
-

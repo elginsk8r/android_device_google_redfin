@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Doze: does this device support STATE_DOZE?  -->
+    <bool name="doze_display_state_supported">true</bool>
+
+    <!-- Doze: only register sensors that use prox when device is in certain Display states. This
+     delays registering sensors when device first shows dozing UI but the
+     Display & Power state hasn't changed to low-power mode yet. -->
+    <bool name="doze_selectively_register_prox">true</bool>
+
+    <!-- Type of a sensor that provides a low-power estimate of the desired display
+         brightness, suitable to listen to while the device is asleep (e.g. during
+         always-on display) -->
+    <string name="doze_brightness_sensor_type" translatable="false">com.google.sensor.binned_brightness</string>
+
+    <!-- Override value to use for proximity sensor.  -->
+    <string name="proximity_sensor_type" translatable="false">android.sensor.light</string>
+
+    <!-- If using proximity_sensor_type, specifies a threshold value to distinguish near and
+         far break points. A sensor value less than this is considered "near". -->
+    <item name="proximity_sensor_threshold" format="float" type="dimen">12</item>
+
+    <!-- If using proximity_sensor_type, specifies a threshold value to distinguish near and
+         far break points. A sensor value more than this is considered "far". If not set,
+         proximity_sensor_threshold is used. This allows one to implement a latching mechanism for
+         noisy sensors. -->
+    <item name="proximity_sensor_threshold_latch" format="float" type="dimen">24</item>
+
+    <!-- Override value to use for proximity sensor as confirmation for proximity_sensor_type. -->
+    <string name="proximity_sensor_secondary_type" translatable="false">android.sensor.proximity</string>
+
+    <!-- If using proximity_sensor_secondary_type, specifies a threshold value to distinguish
+         near and far break points. A sensor value less than this is considered "near". -->
+    <item name="proximity_sensor_secondary_threshold" format="float" type="dimen">5</item>
+
+    <!-- Doze: Table that translates sensor values from the doze_brightness_sensor_type sensor
+               to brightness values in the integer scale [1, 255]; -1 means keeping the current
+               brightness. -->
+    <integer-array name="config_doze_brightness_sensor_to_brightness">
+        <item>-1</item> <!-- 0: OFF -->
+        <item>5</item> <!-- 1: NIGHT -->
+        <item>5</item> <!-- 2: LOW -->
+        <item>27</item> <!-- 3: HIGH -->
+        <item>27</item> <!-- 4: SUN -->
+    </integer-array>
+
+    <!-- Doze: Table that translates sensor values from the doze_brightness_sensor_type sensor
+               to an opacity value for a black scrim that is overlayed in AOD1.
+               Valid range is from 0 (transparent) to 255 (opaque).
+               -1 means keeping the current opacity. -->
+    <integer-array name="config_doze_brightness_sensor_to_scrim_opacity">
+        <item>-1</item> <!-- 0: OFF -->
+        <item>133</item> <!-- 1: NIGHT -->
+        <item>0</item> <!-- 2: LOW -->
+        <item>0</item> <!-- 3: HIGH -->
+        <item>0</item> <!-- 4: SUN -->
+    </integer-array>
+
+    <!-- Doze: whether the double tap sensor reports 2D touch coordinates -->
+    <bool name="doze_double_tap_reports_touch_coordinates">true</bool>
+
+    <!-- Default rounded corner curve (a Bezier). Must match (the curved path in) rounded.xml.
+         Note that while rounded.xml includes the entire path (including the horizontal and vertical
+         corner edges), this pulls out just the curve.
+     -->
+    <string name="config_rounded_mask" translatable="false">M156,0 C76,4 58,5 31,31 5,58 4,76 0,156</string>
+
+    <!-- A path similar to frameworks/base/core/res/res/values/config.xml
+      config_mainBuiltInDisplayCutout that describes a path larger than the exact path of a outer
+      display cutout. If present as well as config_enableDisplayCutoutProtection is set to true,
+      then SystemUI will draw this "protection path" instead of the display cutout path that is
+      normally used for anti-aliasing.
+
+      This path will only be drawn when the front-facing camera turns on, otherwise the main
+      DisplayCutout path will be rendered
+       -->
+    <string name="config_frontBuiltInDisplayCutoutProtection" translatable="false">M 29,77 a 52,52 0 1 0 104,0 a 52,52 0 1 0 -104,0 Z</string>
+
+    <!-- ID for the camera of outer display that needs extra protection -->
+    <string name="config_protectedCameraId" translatable="false">1</string>
+
+    <!-- Comma-separated list of packages to exclude from camera protection e.g.
+    "com.android.systemui,com.android.xyz" -->
+    <string name="config_cameraProtectionExcludedPackages" translatable="false">com.google.android.as</string>
+
+    <!--  Flag to turn on the rendering of the above path or not  -->
+    <bool name="config_enableDisplayCutoutProtection">true</bool>
+</resources>
